@@ -1,0 +1,10 @@
+{
+	"base_url": "https://server1.api-football.com/",
+	"endpoints": [
+		"status",
+		"leagues",
+		"countries",
+		"teams",
+		"fixtures"
+	]
+}

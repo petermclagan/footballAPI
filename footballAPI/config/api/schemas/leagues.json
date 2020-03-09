@@ -1,0 +1,126 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "http://json-schema.org/draft-07/schema#",
+	"title": "The response from the https://server1.api-football.com/leagues endpoint.",
+	"type": "object",
+	"required": ["api"],
+	"properties": {
+		"api": {
+			"type": "object",
+			"required": ["results",
+						 "leagues"
+						],
+			"properties": {
+				"results": {
+					"type": "integer"
+				},
+				"leagues": {
+					"type": "array",
+					"items":{
+							"type": "object",
+						"required": ["league_id",
+							"name",
+							"type",
+							"country",
+							"country_code",
+							"season",
+							"season_start",
+							"season_end",
+							"standings",
+							"is_current",
+							"coverage"
+						],
+						"properties": {
+							"league_id": {
+								"type": "integer"
+							},
+							"name": {
+								"type": "string"
+							},
+							"type": {
+								"type": "string"
+							},
+							"country": {
+								"type": "string"
+							},
+							"country_code": {
+								"type": ["string", "null"]
+							},
+							"season": {
+								"type": "integer"
+							},
+							"season_start": {
+								"type": "string"
+							},
+							"season_end": {
+								"type": ["string", "null"]
+							},
+							"logo": {
+								"type": ["string", "null"]
+							},
+							"flag": {
+								"type": ["string", "null"]
+							},
+							"standings": {
+								"type": "integer"
+							},
+							"is_current": {
+								"type": "integer"
+							},
+							"coverage": {
+								"type": "object",
+								"required": ["standings",
+									"fixtures",
+									"players",
+									"topScorers",
+									"predictions",
+									"odds"
+								],
+								"properties": {
+									"standings": {
+										"type": "boolean"
+									},
+									"fixtures": {
+										"type": "object",
+										"required": ["events",
+											"lineups",
+											"statistics",
+											"players_statistics"
+										],
+										"properties": {
+											"events": {
+												"type": "boolean"
+											},
+											"lineups": {
+												"type": "boolean"
+											},
+											"statistics": {
+												"type": "boolean"
+											},
+											"players_statistics": {
+												"type": "boolean"
+											}
+										}
+									},
+									"players": {
+										"type": "boolean"
+									},
+									"topScorers": {
+										"type": "boolean"
+									},
+									"predictions": {
+										"type": "boolean"
+									},
+									"odds": {
+										"type": "boolean"
+									}
+								}
+							}
+						}
+					}
+				}
+
+			}
+		}
+	}
+}

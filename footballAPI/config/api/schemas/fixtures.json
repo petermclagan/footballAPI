@@ -1,0 +1,162 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "http://json-schema.org/draft-07/schema#",
+	"title": "The response from the https://server1.api-football.com/fixtures/ endpoint.",
+	"type": "object",
+	"required": ["api"],
+	"properties": {
+		"api": {
+			"type": "object",
+			"required": ["results", "fixtures"],
+			"properties": {
+				"results": {
+					"type": "integer"
+				},
+				"fixtures": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": [
+							"fixture_id",
+							"league_id",
+							"event_date",
+							"event_timestamp",
+							"firstHalfStart",
+							"secondHalfStart",
+							"round",
+							"status",
+							"statusShort",
+							"elapsed",
+							"venue",
+							"referee",
+							"homeTeam",
+							"awayTeam",
+							"goalsHomeTeam",
+							"goalsAwayTeam",
+							"score"
+						],
+						"properties": {
+							"fixture_id": {
+								"type": "integer"
+							},
+							"league_id": {
+								"type": "integer"
+							},
+							"league": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"country": {
+										"type": "string"
+									},
+									"logo": {
+										"type": "string"
+									},
+									"flag": {
+										"type": "string"
+									}
+								}
+							},
+							"event_date": {
+								"type": "string"
+							},
+							"event_timestamp": {
+								"type": "integer"
+							},
+							"firstHalfStart": {
+								"type": ["integer", "null"]
+							},
+							"secondHalfStart": {
+								"type": ["integer", "null"]
+							},
+							"round": {
+								"type": "string"
+							},
+							"status": {
+								"type": "string"
+							},
+							"statusShort": {
+								"type": "string"
+							},
+							"elapse": {
+								"type": "integer"
+							},
+							"venue": {
+								"type": "string"
+							},
+							"referee": {
+								"type": ["string", "null"]
+							},
+							"homeTeam": {
+								"type": "object",
+								"required": [
+									"team_id"
+								],
+								"properties": {
+									"team_id": {
+										"type": "integer"
+									},
+									"team_name": {
+										"type": "string"
+									},
+									"logo": {
+										"type": "string"
+									}
+								}
+							},
+							"awayTeam": {
+								"type": "object",
+								"required": [
+									"team_id"
+								],
+								"properties": {
+									"team_id": {
+										"type": "integer"
+									},
+									"team_name": {
+										"type": "string"
+									},
+									"logo": {
+										"type": "string"
+									}
+								}
+							},
+							"goalsHomeTeam": {
+								"type": ["integer", "null"]
+							},
+							"goalsAwayTeam": {
+								"type": ["integer", "null"]
+							},
+							"score": {
+								"type": "object",
+								"required": [
+									"halftime",
+									"fulltime",
+									"extratime",
+									"penalty"
+								],
+								"properties": {
+									"halftime": {
+										"type": ["string", "null"]
+									},
+									"fulltime": {
+										"type": ["string", "null"]
+									},
+									"extratime": {
+										"type": ["string", "null"]
+									},
+									"penalty": {
+										"type": ["string", "null"]
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+}

@@ -1,0 +1,53 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "http://json-schema.org/draft-07/schema#",
+	"title": "The response from the https://server1.api-football.com/status endpoint.",
+	"type": "object",
+	"properties": {
+		"api": {
+			"type": "object",
+			"properties": {
+				"results": {
+					"type": "integer"
+				},
+				"status": {
+					"type": "object",
+					"properties": {
+						"user": {
+							"type": "string"
+						},
+						"email": {
+							"type": "string"
+						},
+						"plan": {
+							"type": "string"
+						},
+						"token": {
+							"type": "string"
+						},
+						"active": {
+							"type": "string",
+							"enum": ["Yes"]
+						},
+						"subscription_end": {
+							"type": "string"
+						},
+						"requests": {
+							"type": "integer"
+						},
+						"requests_limit_day": {
+							"type": "integer"
+						}
+					},
+					"required": ["user",
+								 "active",
+								 "subscription_end",
+								 "requests",
+								 "requests_limit_day"]
+				}
+			},
+			"required": ["status"]
+		}
+	},
+"required": ["api"]
+}

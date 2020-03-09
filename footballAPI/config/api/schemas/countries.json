@@ -1,0 +1,38 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "http://json-schema.org/draft-07/schema#",
+	"title": "The response from the https://server1.api-football.com/countries endpoint.",
+	"type": "object",
+	"required": ["api"],
+	"properties": {
+		"api": {
+			"type": "object",
+			"required": ["results",
+						 "countries"],
+			"properties": {
+				"results": {
+					"type": "integer"
+				},
+				"countries": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": ["country",
+									 "code"],
+						"properties": {
+							"country": {
+								"type": "string"
+							},
+							"code": {
+								"type": ["string", "null"]
+							},
+							"flag": {
+								"type": ["string", "null"]
+							}
+						}			
+					}
+				}
+			}
+		}
+	}
+}

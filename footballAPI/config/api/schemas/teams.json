@@ -1,0 +1,75 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "http://json-schema.org/draft-07/schema#",
+	"title": "The response from the https://server1.api-football.com/teams/ endpoint.",
+	"type": "object",
+	"required": ["api"],
+	"properties": {
+		"api": {
+			"type": "object",
+			"required": ["results",
+						 "teams"],
+			"properties": {
+				"results": {
+					"type": "integer"
+				},
+				"teams": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": ["team_id",
+									"name",
+									"code",
+									"is_national",
+									"country",
+									"founded",
+									"venue_name",
+									"venue_surface",
+									"venue_address",
+									"venue_city",
+									"venue_capacity"
+									],
+						"properties": {
+							"team_id": {
+								"type": "integer"
+							},
+							"name": {
+								"type": "string"
+							},
+							"code": {
+								"type": ["string", "null"]
+							},
+							"logo": {
+								"type": "string"
+							},
+							"is_national": {
+								"type": "boolean"
+							},
+							"country": {
+								"type": "string"
+							},
+							"founded": {
+								"type": "integer"
+							},
+							"venue_name": {
+								"type": "string"
+							},
+							"venue_surface": {
+								"type": "string"
+							},
+							"venue_address": {
+								"type": "string"
+							},
+							"venue_city": {
+								"type": "string"
+							},
+							"venue_capacity": {
+								"type": "integer"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
