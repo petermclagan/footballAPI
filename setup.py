@@ -1,10 +1,17 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
-if __name__ == '__main__':
-	setup(
-		name='footballAPI',
-		version='0.1.0',
-		description='Builds a database of football data.',
-		install_requires=['footballAPI'],
-		author='petermclagan')
-	
+with open('requirements.txt') as r:
+	requirements = r.readlines()
+
+setup(
+	name='betfair-historical',
+	version='0.1.0',
+	description='www.api-football.com tooling',
+	author='Peter McLagan',
+	author_email='peter.mclagan94@gmail.com',
+	url='https://github.com/petermclagan/footballAPI',
+	packages=find_packages(),
+	install_requires=requirements,
+	license='MIT',
+	zip_safe=False
+	)

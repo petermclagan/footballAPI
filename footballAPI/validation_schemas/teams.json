@@ -49,22 +49,22 @@
 								"type": "string"
 							},
 							"founded": {
-								"type": "integer"
+								"type": ["integer", "null"]
 							},
 							"venue_name": {
 								"type": "string"
 							},
 							"venue_surface": {
-								"type": "string"
+								"type": ["string", "null"]
 							},
 							"venue_address": {
-								"type": "string"
+								"type": ["string", "null"]
 							},
 							"venue_city": {
-								"type": "string"
+								"type": ["string", "null"]
 							},
 							"venue_capacity": {
-								"type": "integer"
+								"type": ["integer", "null"]
 							}
 						}
 					}
