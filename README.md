@@ -1,0 +1,69 @@
+# footballAPI
+This is a package designed to work with the football (soccer) API provided by [API-Sports](https://www.api-football.com/). Full documentation and subscription details are provided on the website. Usage of this package requires **any** level of subscription and a valid `API_KEY`.
+
+<h2 id=api-football> APIFootball</h2>
+This is the main module of the package. It handles requests, and manages available credits to avoid using more than a subscription covers, as well as performing validation on the structure of the API response.
+
+The module can be instantiated as below:
+```python
+from footballAPI import APIFootball
+
+apifootball = APIFootball(**kwargs)
+```
+Arguments:
+	- `api_key`: a valid API key. If not provided it must be available as an environment variable named `API_KEY`.
+	- `base_url (optional)`: the URL to query, defaulting to `https://server1.api-football.com`.  Implemented in case of changes.
+	- `headers (optional)`: any additional headers required. Note that the `X-RapidAPI-Key` header is added separately and should **not** be included. Default is `None`.
+	- `verify (optional)`: verification to be passed to `requests.get`. Defaults to `False`.
+
+<h3 id=checking-credits> Checking Credits </h3>
+Upon instantiating the [APIFootball](#api-football) class a call to the `status` endpoint is done. **This does not use any credits**. This creates the class variables:
+	- `max_credits`: this is the maximum number of available credits per day linked to the provided `API_KEY`.
+	- `available_credits`: this is the difference between used credits and `max_credits` minus one to allow for an additional level of security.
+
+**If `available_credits` is 1 or less a `NoAvailableCredits` exception will be raised**.
+
+After each API call these values are updated, and can be updated at any time using the `update_credits()` method.
+
+<h3 id=making-requests>Making Requests</h3>
+
+Requests to the API should be made using the `get` method. See [here](#get-examples) for example usage.
+
+`method: get(endpoint, dryrun=False, params=None, validate=True, validation_schema=None)`
+
+This method will call the API for the provided `endpoint` and return the data in a JSON format.
+
+Arguments:
+	- `endpoint`: the endpoint to call (see [documentation](https://www.api-football.com/documentation) for available endpoints.
+	- `dryrun (optional)`: if `True` this will only print logs stating the endpoints and calls that will be made. The method will return `None` when this is used.
+	- `params (optional)`: a dictionary of any additional parameters to be passed to the endpoint (see [documentation](https://www.api-football.com/documentation) for available parameters).
+	- `validate (optional)`: perform [jsonschema](https://json-schema.org/) validation on the JSON data received from the API (see [here](#jsonvalidation) for more details).
+	- `validation_schema (optional)`: a valid `jsonschema` to validate response against. Will default to those provided within the package.
+
+<h4 id=get-examples>Examples</h4>
+
+1) Requesting `countries` data:
+	```python
+	data = apifootball.get(endpoint="countries")
+	```
+2) Requesting `fixtures` data with `league_id` parameter:
+	```python
+	data = apifootball.get(endpoint="fixtures", params={"league_id": 2})
+	```
+<h3 id=jsonvalidation>JSON Validation </h3>
+
+Validation can be performed on the responses from the API through the usage of the [jsonschema](https://json-schema.org/) library. This can be turned off if desired, or validated using custom schemas by using the `validate` and `validation_schema` arguments of the [get](#making-requests) method.
+
+Currently there are available schemas contained within the package for the following endpoints:
+
+- `status`
+- `fixtures`
+- `teams`
+- `leagues`
+- `countries`
+
+Others shall be added to this list.
+
+<h2 id=further-notes>Further Notes </h2>
+
+- Running all of the `pytests` for this package will currently use 1 credit of the user, and requires the `API_KEY` environment variable to be available.
