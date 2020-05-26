@@ -15,7 +15,7 @@ class APIFootball:
 	def __init__(
 		self,
 		api_key: str=None, 
-		base_url: str="https://server1.api-football.com/",
+		base_url: str="https://server1.api-football.com",
 		headers: Union[Dict[str, str], None]=None,
 		verify: bool=False
 		):
@@ -98,7 +98,6 @@ class APIFootball:
 
 		self.logger.info(f"{'(dryrun)' if dryrun else ''} Requesting {api_url}.")
 		if not dryrun:
-			self.update_credits()
 			resp = requests.get(**payload)
 			self.logger.debug("Checking for valid status code.")
 			self._check_status_code(resp.status_code)
@@ -163,6 +162,7 @@ class APIFootball:
 						dryrun=dryrun,
 						params=params
 					)
+			self.update_credits()
 
 		if not dryrun:
 			data = resp.json()
@@ -184,6 +184,7 @@ class APIFootball:
 		self.logger.debug("Updating credits")
 		resp = self._get(endpoint="status")
 		data = resp.json()
+
 		self._validate_data(endpoint="status", data=data)
 
 		self.max_credits = data["api"]["status"]["requests_limit_day"]
