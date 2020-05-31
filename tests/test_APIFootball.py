@@ -41,4 +41,3 @@ class TestAPIFootball:
 
 		assert original_creds - 1 == after_creds
 		assert expected_country in data["api"]["countries"]
-

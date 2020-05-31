@@ -144,7 +144,7 @@ class APIFootball:
 		params: Dict[str, str]=None,
 		validate: bool=True,
 		validation_schema: Dict=None
-		) -> Response:
+		) -> Union[Dict, None]:
 		"""
 		Can be used to run against any arbitrary endpoint. Using this function directly may result in wasting credits if the endpoint is invalid.
 		
@@ -154,7 +154,7 @@ class APIFootball:
 		:param validate: Perform validation against a jsonschema
 		:param validation_schema: A non-default validation schema for validation if required
 
-		return: The JSON response from the endpoint
+		return: The JSON response from the endpoint if not dryrun, or None 
 		"""
 		if self.available_credits > 0:
 			resp = self._get(
@@ -164,16 +164,18 @@ class APIFootball:
 					)
 			self.update_credits()
 
-		if not dryrun:
-			data = resp.json()
+		if dryrun:
+			return None
 
-			if validate:
-				self.logger.debug(f"Performing validation")
-				self._validate_data(
-					endpoint=endpoint,
-					data=data,
-					expected_schema=validation_schema 
-					)
+		data = resp.json()
+
+		if validate:
+			self.logger.debug(f"Performing validation")
+			self._validate_data(
+				endpoint=endpoint,
+				data=data,
+				expected_schema=validation_schema 
+				)
 
 		return data
 

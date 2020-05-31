@@ -21,3 +21,9 @@ class NoAvailableCredits(Exception):
 	Raised when the user does not have enough credits to make the requested calls.
 	"""
 	pass
+
+class NoValidationSchema(Exception):
+	"""
+	Raied when vaildation is required but no schema is available.
+	"""
+	pass
