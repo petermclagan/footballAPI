@@ -11,6 +11,7 @@ setup(
 	author_email='peter.mclagan94@gmail.com',
 	url='https://github.com/petermclagan/footballAPI',
 	packages=find_packages(),
+	include_package_data=True,
 	install_requires=requirements,
 	license='MIT',
 	zip_safe=False
