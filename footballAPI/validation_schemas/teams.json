@@ -52,7 +52,7 @@
 								"type": ["integer", "null"]
 							},
 							"venue_name": {
-								"type": "string"
+								"type": ["string", "null"]
 							},
 							"venue_surface": {
 								"type": ["string", "null"]
