@@ -121,13 +121,13 @@ class APIFootball:
 		:param expected_schema: The expected jsonschema object, defaults to provided shcemas
 		"""
 		core_endpoint = endpoint.split('/')[0]	# uses teams if endpoint is teams/team
-		self.logger.debug(f"Loading validation schema for {endpoint}")
+		self.logger.debug(f"Loading validation schema for {core_endpoint}")
 		if not expected_schema:
-			default_schema = f"validation_schemas/{endpoint}.json"
+			default_schema = f"validation_schemas/{core_endpoint}.json"
 			default_schema_path = pkg_resources.resource_filename(__name__, default_schema)
 
 			if not os.path.exists(default_schema_path):
-				raise NoValidationSchema(f"No validation schema in default for endpoint {endpoint}.")
+				raise NoValidationSchema(f"No validation schema in default for endpoint {core_endpoint}.")
 
 			with open(default_schema_path) as schema_json:
 				schema = json.load(schema_json)
