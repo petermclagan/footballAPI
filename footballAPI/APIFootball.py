@@ -120,6 +120,7 @@ class APIFootball:
 		:param: resp: The JSON response from the API
 		:param expected_schema: The expected jsonschema object, defaults to provided shcemas
 		"""
+		core_endpoint = endpoint.split('/')[0]	# uses teams if endpoint is teams/team
 		self.logger.debug(f"Loading validation schema for {endpoint}")
 		if not expected_schema:
 			default_schema = f"validation_schemas/{endpoint}.json"
