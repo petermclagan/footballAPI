@@ -16,6 +16,31 @@ Arguments:
 	- `headers (optional)`: any additional headers required. Note that the `X-RapidAPI-Key` header is added separately and should **not** be included. Default is `None`.
 	- `verify (optional)`: verification to be passed to `requests.get`. Defaults to `False`.
 
+<h3 id=base-endpoints> Base Endpoints </h3>
+The permitted endpoints are defined in the [documentation](https://www.api-football.com/documentation). Currently these are:
+
+- status
+- timezone
+- seasons
+- countries
+- leagues
+- teams
+- players
+- leagueTable
+- fixtures
+- events
+- lineups
+- statistics
+- predictions
+- coachs
+- transfers
+- sidelined
+- odds
+
+Any `get` command that is called will ensure that one of these endpoints has been passed, otherwise an `InvalidEndpoint` exception shall be raised.
+
+**Usage of more detailed endpoints such as those requiring specific ids are not checked and can result in wasting credits if not checked.**
+
 <h3 id=checking-credits> Checking Credits </h3>
 Upon instantiating the [APIFootball](#api-football) class a call to the `status` endpoint is done. **This does not use any credits**. This creates the class variables:
 	- `max_credits`: this is the maximum number of available credits per day linked to the provided `API_KEY`.
@@ -29,14 +54,13 @@ After each API call these values are updated, and can be updated at any time usi
 
 Requests to the API should be made using the `get` method. See [here](#get-examples) for example usage.
 
-`method: get(endpoint, dryrun=False, params=None, validate=True, validation_schema=None)`
+`method: get(endpoint, dryrun=False, validate=True, validation_schema=None)`
 
 This method will call the API for the provided `endpoint` and return the data in a JSON format.
 
 Arguments:
 	- `endpoint`: the endpoint to call (see [documentation](https://www.api-football.com/documentation) for available endpoints.
 	- `dryrun (optional)`: if `True` this will only print logs stating the endpoints and calls that will be made. The method will return `None` when this is used.
-	- `params (optional)`: a dictionary of any additional parameters to be passed to the endpoint (see [documentation](https://www.api-football.com/documentation) for available parameters).
 	- `validate (optional)`: perform [jsonschema](https://json-schema.org/) validation on the JSON data received from the API (see [here](#jsonvalidation) for more details).
 	- `validation_schema (optional)`: a valid `jsonschema` to validate response against. Will default to those provided within the package.
 
@@ -48,7 +72,7 @@ Arguments:
 	```
 2) Requesting `fixtures` data with `league_id` parameter:
 	```python
-	data = apifootball.get(endpoint="fixtures", params={"league_id": 2})
+	data = apifootball.get(endpoint="fixtures")
 	```
 <h3 id=jsonvalidation>JSON Validation </h3>
 
@@ -57,13 +81,24 @@ Validation can be performed on the responses from the API through the usage of t
 Currently there are available schemas contained within the package for the following endpoints:
 
 - `status`
-- `fixtures`
-- `teams`
+- `fixtures` - this applies to the fixtures obtained by league id only
+- `teams` - this applies only to the teams data and not the team statistics
 - `leagues`
 - `countries`
+- `timezone`
+- `seasons`
+- `players` - this applies only to the squad endpoint of players currently
+- `coachs`
 
 Others shall be added to this list.
 
 <h2 id=further-notes>Further Notes </h2>
 
 - Running all of the `pytests` for this package will currently use 1 credit of the user, and requires the `API_KEY` environment variable to be available.
+
+<h1 id=release-notes> Release Notes </h1>
+<h3 id=0.1.0-1.0.0> 0.1.0 -> 1.0.0 </h3>
+
+- Deprecated `params` argument from `get` function due to it not functioning with the API. To call API the user must now pass the full endpoint, eg. `fixtures/live`.
+- Added validation to the base endpoint provided to avoid wasting credits, with configuration of this list in the new `globals.py` file.
+- Added additional validation schemas for coachs, players, seasons and timezone.

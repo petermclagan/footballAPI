@@ -1,0 +1,81 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "http://json-schema.org/draft-07/schema#",
+	"title": "The response from the https://server1.api-football.com/countries endpoint.",
+	"type": "object",
+	"required": ["api"],
+	"properties": {
+		"api": {
+			"type": "object",
+			"required": ["results",
+						 "players"],
+			"properties": {
+				"results": {
+					"type": "integer"
+				},
+				"players": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": [
+							"player_id",
+							"player_name",
+							"firstname",
+							"lastname",
+							"number",
+							"position",
+							"age",
+							"birth_date",
+							"birth_place",
+							"birth_country",
+							"nationality",
+							"height",
+							"weight"
+						],
+						"properties": {
+							"player_id": {
+								"type": "integer"
+							},
+							"player_name": {
+								"type": "string"
+							},
+							"firstname": {
+								"type": "string"
+							},
+							"lastname": {
+								"type": "string"
+							},
+							"number": {
+								"type": ["integer", "null"]
+							},
+							"position": {
+								"type": ["string", "null"]
+							},
+							"age": {
+								"type": "integer"
+							},
+							"birth_date": {
+								"type": "string"
+							},
+							"birth_place": {
+								"type": ["string", "null"]
+							},
+							"birth_country": {
+								"type": ["string", "null"]
+							},
+							"nationality": {
+								"type": "string"
+							},
+							"height": {
+								"type": ["string", "null"]
+							},
+							"weight": {
+								"type": ["string", "null"]
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

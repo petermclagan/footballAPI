@@ -1,0 +1,124 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "http://json-schema.org/draft-07/schema#",
+	"title": "The response from the https://server1.api-football.com/coachs endpoint.",
+	"type": "object",
+	"required": ["api"],
+	"properties": {
+		"api": {
+			"type": "object",
+			"required": ["results",
+						 "coachs"],
+			"properties": {
+				"results": {
+					"type": "integer"
+				},
+				"coachs": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": [
+								"age",
+								"birth_country",
+								"birth_date",
+								"birth_place",
+								"career",
+								"firstname",
+								"height",
+								"id",
+								"lastname",
+								"name",
+								"nationality",
+								"team",
+								"weight"
+							],
+						"properties": {
+							"age": {
+								"type": "integer"
+							},
+							"birth_country": {
+								"type": ["string", "null"]
+							},
+							"birth_date": {
+								"type": "string"
+							},
+							"birth_place": {
+								"type": ["string", "null"]
+							},
+							"career": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"required": [
+										"end",
+										"start",
+										"team"
+									],
+									"properties": {
+										"end": {
+											"type": ["string", "null"]
+										},
+										"start": {
+											"type": "string"
+										},
+										"team": {
+											"type": "object",
+											"required": [
+													"id", 
+													"name"
+												],
+											"properties": {
+												"id": {
+													"type": "integer"
+												},
+												"name": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							},
+							"firstname": {
+								"type": "string"
+							},
+							"height": {
+								"type": ["string", "null"]
+							},
+							"id": {
+								"type": "integer"
+							},
+							"lastname": {
+								"type": "string"
+							},
+							"name": {
+								"type": "string"
+							},
+							"nationality": {
+								"type": "string"
+							},
+							"team": {
+								"type": "object",
+								"required": [
+										"id",
+										"name"
+									],
+								"properties": {
+									"id": {
+										"type": "integer"
+									},
+									"name": {
+										"type": "string"
+									}
+								}
+							},
+							"weight": {
+								"type": ["string", "null"]
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

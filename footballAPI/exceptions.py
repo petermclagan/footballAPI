@@ -1,6 +1,6 @@
-class InvalidParams(Exception):
+class InvalidEndpoint(Exception):
 	"""
-	Raised when invalid params have been passed to the request.
+	Raised when an invalid endpoint is passed. Valid endpoints are defined under BASE_ENDPOINTS in globals.py.
 	"""
 	pass
 

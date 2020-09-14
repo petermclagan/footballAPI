@@ -10,6 +10,7 @@ import requests
 from requests.models import Response
 
 from footballAPI.exceptions import *
+from footballAPI.globals import *
 
 class APIFootball:
 	def __init__(
@@ -71,28 +72,22 @@ class APIFootball:
 	def _get(
 		self,
 		endpoint: str,
-		dryrun: bool=False,
-		params: Dict[str, str]=None
+		dryrun: bool=False
 		) -> Union[Response, None]:
 		"""
 		Calls the api and returns the response if a successful status code
 		
 		:param endpoint: The extension of the base url with any filters added
 		:param dryrun: If True it will only say which endpoint will be called and return None
-		:param params: The params to be passed to the request
 		
 		return: The returned response from the API or None if dryrun
 		"""
-		if params and not isinstance(params, Dict):
-			raise InvalidParams("Params passed to request are not of type dict.")
-
 		self.logger.debug("Building payload.")
 		api_url = f"{self.base_url}/{endpoint}"
 		payload = {
 			"url": api_url,
 			"headers": self.headers,
-			"verify": self.verify,
-			"params": params
+			"verify": self.verify
 		}
 		self.logger.debug("Payload built successfully.")
 
@@ -142,7 +137,6 @@ class APIFootball:
 		self,
 		endpoint: str,
 		dryrun: bool=False,
-		params: Dict[str, str]=None,
 		validate: bool=True,
 		validation_schema: Dict=None
 		) -> Union[Dict, None]:
@@ -151,17 +145,21 @@ class APIFootball:
 		
 		:param endpoint: The endpoint to call
 		:param dryrun: Execute the requests
-		:param params: Any parameters to pass to the request
 		:param validate: Perform validation against a jsonschema
 		:param validation_schema: A non-default validation schema for validation if required
 
 		return: The JSON response from the endpoint if not dryrun, or None 
 		"""
+
+		base_endpoint = endpoint.split('/')[0]	# eg. takes base endpoint fixtures from fixtures/live
+
+		if not base_endpoint in BASE_ENDPOINTS:
+			raise InvalidEndpoint(f"{endpoint} is not a permitted endpoint.")
+
 		if self.available_credits > 0:
 			resp = self._get(
 						endpoint=endpoint,
-						dryrun=dryrun,
-						params=params
+						dryrun=dryrun
 					)
 			self.update_credits()
 
