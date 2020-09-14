@@ -12,5 +12,10 @@ BASE_ENDPOINTS = [
 	'events',
 	'lineups',
 	'statistics',
-	'odds',
+	'predictions',
+	'coachs',
+	'transfers',
+	'trophies',
+	'sidelined',
+	'odds', 
 	]
