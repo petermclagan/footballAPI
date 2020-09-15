@@ -18,4 +18,14 @@ BASE_ENDPOINTS = [
 	'trophies',
 	'sidelined',
 	'odds', 
+	'match',
 	]
+
+# These are custom created endpoints to make the user experience easier. 
+CUSTOM_ENDPOINTS = {
+	'match': 'fixtures/id/{fixture_id}',		# returns all data for a given fixture_id
+}
+
+VALID_CUSTOM_IDS = [
+	'fixture_id',
+]

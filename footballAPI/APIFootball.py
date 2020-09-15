@@ -56,6 +56,24 @@ class APIFootball:
 		# Update available_credits and max_credits
 		self.update_credits()
 
+	def _build_payload(self, endpoint: str) -> Dict:
+		"""
+		Builds a payload to send to the API.
+
+		:param endpoint: The endpoint to pass to the payload.
+
+		return: Payload to pass to the API.
+		"""
+		self.logger.debug("Building payload.")
+		api_url = f"{self.base_url}/{endpoint}"
+		payload = {
+			"url": api_url,
+			"headers": self.headers,
+			"verify": self.verify
+		}
+		self.logger.debug("Payload built successfully.")
+		return payload
+
 	def _check_status_code(self, status_code: int):
 		"""
 		Check the status code of a response to ensure it is valid. 
@@ -82,16 +100,8 @@ class APIFootball:
 		
 		return: The returned response from the API or None if dryrun
 		"""
-		self.logger.debug("Building payload.")
-		api_url = f"{self.base_url}/{endpoint}"
-		payload = {
-			"url": api_url,
-			"headers": self.headers,
-			"verify": self.verify
-		}
-		self.logger.debug("Payload built successfully.")
-
-		self.logger.info(f"{'(dryrun)' if dryrun else ''} Requesting {api_url}.")
+		payload = self._build_payload(endpoint)
+		self.logger.info(f"{'(dryrun)' if dryrun else ''} Requesting {payload['url']}.")
 		if not dryrun:
 			resp = requests.get(**payload)
 			self.logger.debug("Checking for valid status code.")
@@ -130,23 +140,37 @@ class APIFootball:
 		else: 
 			schema = expected_schema
 
-		jsonschema.validate(instance=data, schema=schema)
-		return
+		validator = jsonschema.Draft7Validator(schema)
+
+		errors = sorted(validator.iter_errors(data), key=lambda e: e.path)
+
+		if errors:
+			self.logger.error(f'Recieved schema validation errors')
+			for error in errors:
+				self.logger.error(error)
+			exit(1)
+
+		else:
+			return
 
 	def get(
 		self,
 		endpoint: str,
 		dryrun: bool=False,
 		validate: bool=True,
-		validation_schema: Dict=None
+		validation_schema: Dict=None,
+		custom_ids: Dict=None,
 		) -> Union[Dict, None]:
 		"""
 		Can be used to run against any arbitrary endpoint. Using this function directly may result in wasting credits if the endpoint is invalid.
+		Custom ids may be passed and should only be used when using custom endpoints and for only one request at a time. 
+		These should be in a dictionary format with the key equalling the type of id and value being the id, eg. {'league_id': 0, 'team_id': 1}.
 		
 		:param endpoint: The endpoint to call
 		:param dryrun: Execute the requests
 		:param validate: Perform validation against a jsonschema
 		:param validation_schema: A non-default validation schema for validation if required
+		:param custom_ids: The custom ids provided for the custom endpoint
 
 		return: The JSON response from the endpoint if not dryrun, or None 
 		"""
@@ -156,11 +180,25 @@ class APIFootball:
 		if not base_endpoint in BASE_ENDPOINTS:
 			raise InvalidEndpoint(f"{endpoint} is not a permitted endpoint.")
 
+		if endpoint in CUSTOM_ENDPOINTS.keys():
+			if not custom_ids:
+				raise ValueError(f'Custom endpoint requires a custom_ids parameter.')
+			else:
+				for key in custom_ids.keys():
+					if key not in VALID_CUSTOM_IDS:
+						raise InvalidCustomId(f'{key} is not a valid custom id.')
+				api_endpoint = CUSTOM_ENDPOINTS[endpoint].format(**custom_ids)
+				self.logger.debug(f'Recieved custom endpoint {api_endpoint}')
+
+		else:
+			api_endpoint = endpoint
+			self.logger.debug(f'Recieved endpoint {api_endpoint}')
+
 		if self.available_credits > 0:
 			resp = self._get(
-						endpoint=endpoint,
-						dryrun=dryrun
-					)
+				endpoint=api_endpoint,
+				dryrun=dryrun
+				)
 			self.update_credits()
 
 		if dryrun:

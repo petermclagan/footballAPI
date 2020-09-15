@@ -2,7 +2,7 @@ import pytest
 
 from footballAPI import APIFootball
 
-from footballAPI.exceptions import InvalidStatusCode
+from footballAPI.exceptions import InvalidCustomId, InvalidStatusCode
 
 class TestAPIFootball:
 	def setup(self):
@@ -33,3 +33,15 @@ class TestAPIFootball:
 
 		assert original_creds - 1 == after_creds
 		assert expected_country in data["api"]["countries"]
+
+	def test_custom_endpoint_valid_ids_dryrun(self):
+		assert self.api.get(endpoint='match', dryrun=True, custom_ids={'fixture_id': 1}) is None
+
+	def test_custom_endpoint_invalid_ids_dryrun(self):
+		with pytest.raises(InvalidCustomId):
+			self.api.get(endpoint='match', dryrun=True, custom_ids={'should_fail': 1})
+
+	def test_custom_endpoint_no_ids_dryrun(self):
+		with pytest.raises(ValueError):
+			self.api.get(endpoint='match', dryrun=True)
+			

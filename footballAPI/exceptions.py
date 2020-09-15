@@ -1,3 +1,9 @@
+class InvalidCustomId(Exception):
+	"""
+	Raised when a custom id key does not match those listed in VALID_CUSTOM_IDS in globals.py.
+	"""
+	pass
+
 class InvalidEndpoint(Exception):
 	"""
 	Raised when an invalid endpoint is passed. Valid endpoints are defined under BASE_ENDPOINTS in globals.py.

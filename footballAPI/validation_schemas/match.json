@@ -1,0 +1,735 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "http://json-schema.org/draft-07/schema#",
+	"title": "The response from the match custom endpoint.",
+	"type": "object",
+	"required": ["api"],
+	"properties": {
+		"api": {
+			"type": "object",
+			"required": ["results",
+						 "fixtures"],
+			"properties": {
+				"results": {
+					"type": "integer"
+				},
+				"fixtures":
+				{
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": [
+							"fixture_id",
+							"league_id",
+							"league",
+							"event_date",
+							"event_timestamp",
+							"firstHalfStart",
+							"secondHalfStart",
+							"round",
+							"status",
+							"statusShort",
+							"elapsed",
+							"venue",
+							"referee",
+							"homeTeam",
+							"awayTeam",
+							"goalsHomeTeam",
+							"goalsAwayTeam",
+							"score",
+							"events",
+							"lineups",
+							"statistics",
+							"players"
+						],
+						"properties": {
+							"fixture_id": {
+								"type": "integer"
+							},
+							"league_id": {
+								"type": "integer"
+							},
+							"league": {
+								"type": "object",
+								"required": [
+									"name",
+									"country",
+									"logo",
+									"flag"
+								],
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"country": {
+										"type": "string"
+									},
+									"logo": {
+										"type": ["string", "null"]
+									},
+									"flag": {
+										"type": ["string", "null"]
+									}
+								}
+							},
+							"event_date": {
+								"type": "string"
+							},
+							"event_timestamp": {
+								"type": "integer"
+							},
+							"firstHalfStart": {
+								"type": ["integer", "null"]
+							},
+							"secondHalfStart": {
+								"type": ["integer", "null"]
+							},
+							"round": {
+								"type": "string"
+							}, 
+							"status": {
+								"type": "string"
+							},
+							"statusShort": {
+								"type": "string"
+							},
+							"elapsed": {
+								"type": "integer"
+							},
+							"venue": {
+								"type": ["string", "null"]
+							},
+							"referee": {
+								"type": ["string", "null"]
+							},
+							"homeTeam": {
+								"type": "object",
+								"required": [
+									"team_id",
+									"team_name",
+									"logo"
+								],
+								"properties": {
+									"team_id": {
+										"type": "integer"
+									},
+									"team_name": {
+										"type": "string"
+									},
+									"logo": {
+										"type": ["string", "null"]
+									}
+								}
+							},
+							"awayTeam": {
+								"type": "object",
+								"required": [
+									"team_id",
+									"team_name",
+									"logo"
+								],
+								"properties": {
+									"team_id": {
+										"type": "integer"
+									},
+									"team_name": {
+										"type": "string"
+									},
+									"logo": {
+										"type": ["string", "null"]
+									}
+								}
+							},
+							"goalsHomeTeam": {
+								"type": "integer"
+							},
+							"goalsAwayTeam": {
+								"type": "integer"
+							},
+							"score": {
+								"type": "object",
+								"required": [
+									"halftime",
+									"fulltime",
+									"extratime",
+									"penalty"
+								],
+								"properties": {
+									"halftime": {
+										"type" : ["string", "null"]
+									},
+									"fulltime": {
+										"type": ["string", "null"]
+									},
+									"extratime": {
+										"type" : ["string", "null"]
+									},
+									"penalty": {
+										"type": ["string", "null"]
+									}
+								}
+							},
+							"events": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"required": [
+										"elapsed",
+										"elapsed_plus",
+										"team_id",
+										"teamName",
+										"player_id",
+										"player",
+										"assist_id",
+										"assist",
+										"type",
+										"detail",
+										"comments"
+									],
+									"properties": {
+										"elapsed": {
+											"type": "integer"
+										},
+										"elapsed_plus": {
+											"type": ["integer", "null"]
+										},
+										"team_id": {
+											"type": "integer"
+										},
+										"teamName": {
+											"type": "string"
+										},
+										"player_id": {
+											"type": "integer"
+										},
+										"player": {
+											"type": "string"
+										},
+										"assist_id": {
+											"type": ["integer", "null"]
+										},
+										"assist": {
+											"type": ["string", "null"]
+										},
+										"type": {
+											"type": "string"
+										},
+										"detail": {
+											"type": ["string", "null"]
+										},
+										"comments": {
+											"type": ["string", "null"]
+										}
+									}
+								}
+							},
+							"lineups": {
+								"type": "object",
+								"minProperties": 2,
+								"maxProperties": 2,
+								"$comment": "No further details due to the keys being team names so dependent on response."
+							},
+							"statistics": {
+								"type": "object",
+								"required": [
+									"Shots on Goal",
+									"Shots off Goal",
+									"Total Shots",
+									"Blocked Shots",
+									"Shots insidebox",
+									"Shots outsidebox",
+									"Fouls",
+									"Corner Kicks",
+									"Offsides",
+									"Ball Possession",
+									"Yellow Cards", 
+									"Red Cards",
+									"Goalkeeper Saves",
+									"Total passes",
+									"Passes accurate",
+									"Passes %"
+								],
+								"properties": {
+									"Shots on Goal": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Shots off Goal": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Total Shots": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Blocked Shots": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Shots insidebox": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Shots outsidebox": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Fouls": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Corner Kicks": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Offsides": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Ball Possession": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Yellow Cards": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Red Cards": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Goalkeeper Saves": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Total passes": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Passes accurate": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									},
+									"Passes %": {
+										"type": "object",
+										"required": [
+											"home",
+											"away"
+										],
+										"properties": {
+											"home": {
+												"type": ["string", "null"]
+											},
+											"away": {
+												"type": ["string", "null"]
+											}
+										}
+									}
+								}
+							},
+							"players": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"required": [
+										"event_id",
+										"updateAt",
+										"player_id",
+										"player_name",
+										"team_id",
+										"team_name",
+										"number",
+										"position",
+										"rating",
+										"minutes_played",
+										"captain",
+										"substitute",
+										"offsides",
+										"shots",
+										"goals",
+										"passes",
+										"tackles",
+										"duels",
+										"dribbles",
+										"fouls",
+										"cards",
+										"penalty"
+									],
+									"properties": {
+										"event_id": {
+											"type": "integer"
+										},
+										"updateAt": {
+											"type": "integer"
+										},
+										"player_id": {
+											"type": "integer"
+										},
+										"player_name": {
+											"type": "string"
+										},
+										"team_id": {
+											"type": "integer"
+										},
+										"team_name": {
+											"type": "string"
+										},
+										"number": {
+											"type": ["integer", "null"]
+										},
+										"position": {
+											"type": ["string", "null"]
+										},
+										"rating": {
+											"type": "string"
+										},
+										"minutes_played": {
+											"type": "integer"
+										},
+										"captain": {
+											"type": "string"
+										},
+										"substitute": {
+											"type": "string"
+										},
+										"offsides": {
+											"type": ["integer", "null"]
+										},
+										"shots": {
+											"type": "object",
+											"required": [
+												"total", 
+												"on"
+											],
+											"properties": {
+												"total": {
+													"type": "integer"
+												},
+												"on": {
+													"type": "integer"
+												}
+											}
+										},
+										"goals": {
+											"type": "object",
+											"required": [
+												"total",
+												"conceded",
+												"assists"
+											],
+											"properties": {
+												"total": {
+													"type": "integer"
+												},
+												"conceded": {
+													"type": "integer"
+												},
+												"assists": {
+													"type": "integer"
+												}
+											}
+										},
+										"passes": {
+											"type": "object",
+											"required": [
+												"total",
+												"key",
+												"accuracy"
+											],
+											"properties": {
+												"total": {
+													"type": "integer"
+												},
+												"key": {
+													"type": "integer"
+												},
+												"accuracte": {
+													"type": "integer"
+												}
+											}
+										},
+										"tackles": {
+											"type": "object",
+											"required": [
+												"total",
+												"blocks",
+												"interceptions"
+											],
+											"properties": {
+												"total": {
+													"type": "integer"
+												},
+												"blocks": {
+													"type": "integer"
+												},
+												"interceptions": {
+													"type": "integer"
+												}
+											}
+										},
+										"duels": {
+											"type": "object",
+											"required": [
+												"total",
+												"won"
+											],
+											"properties": {
+												"total": {
+													"type": "integer"
+												},
+												"won": {
+													"type": "integer"
+												}
+											}
+										},
+										"dribbles": {
+											"type": "object",
+											"required": [
+												"attempts",
+												"success",
+												"past"
+											],
+											"properties": {
+												"attempts": {
+													"type": "integer"
+												},
+												"success": {
+													"type": "integer"
+												},
+												"past": {
+													"type": "integer"
+												}
+											}
+										},
+										"fouls": {
+											"type": "object",
+											"required": [
+												"drawn",
+												"committed"
+											],
+											"properties": {
+												"drawn": {
+													"type": "integer"
+												},
+												"committed": {
+													"type": "integer"
+												}
+											}
+										},
+										"cards": {
+											"type": "object",
+											"required": [
+												"yellow",
+												"red"
+											],
+											"properties": {
+												"yellow": {
+													"type": "integer"
+												},
+												"red": {
+													"type": "integer"
+												}
+											}
+										},
+										"penalty": {
+											"type": "object",
+											"required": [
+												"won",
+												"commited",
+												"success",
+												"missed",
+												"saved"
+											],
+											"properties": {
+												"won": {
+													"type": "integer"
+												},
+												"committed": {
+													"type": "integer"
+												},
+												"success": {
+													"type": "integer"
+												},
+												"missed": {
+													"type": "integer"
+												},
+												"saved": {
+													"type": "integer"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
