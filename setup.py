@@ -5,7 +5,7 @@ with open('requirements.txt') as r:
 
 setup(
 	name='betfair-historical',
-	version='1.0.0',
+	version='1.1.0',
 	description='www.api-football.com tooling',
 	author='Peter McLagan',
 	author_email='peter.mclagan94@gmail.com',
