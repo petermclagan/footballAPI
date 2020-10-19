@@ -200,7 +200,7 @@
 											"type": "string"
 										},
 										"player_id": {
-											"type": "integer"
+											"type": ["integer", "null"]
 										},
 										"player": {
 											"type": "string"
@@ -528,7 +528,7 @@
 											"type": "integer"
 										},
 										"player_id": {
-											"type": "integer"
+											"type": ["integer", "null"]
 										},
 										"player_name": {
 											"type": "string"
