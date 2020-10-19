@@ -201,6 +201,9 @@ class APIFootball:
 				)
 			self.update_credits()
 
+		elif self.available_credits == 0 and not dryrun:
+			raise NoAvailableCredits('No credits available for API call.')
+
 		if dryrun:
 			return None
 
