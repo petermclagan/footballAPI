@@ -546,16 +546,16 @@
 											"type": ["string", "null"]
 										},
 										"rating": {
-											"type": "string"
+											"type": ["string", "null"]
 										},
 										"minutes_played": {
 											"type": "integer"
 										},
 										"captain": {
-											"type": "string"
+											"type": ["string", "null"]
 										},
 										"substitute": {
-											"type": "string"
+											"type": ["string", "null"]
 										},
 										"offsides": {
 											"type": ["integer", "null"]
