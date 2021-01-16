@@ -4,7 +4,7 @@ with open('requirements.txt') as r:
 	requirements = r.readlines()
 
 setup(
-	name='betfair-historical',
+	name='APIFootball',
 	version='1.1.0',
 	description='www.api-football.com tooling',
 	author='Peter McLagan',

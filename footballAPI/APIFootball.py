@@ -16,7 +16,7 @@ class APIFootball:
 	def __init__(
 		self,
 		api_key: str=None, 
-		base_url: str="https://server1.api-football.com",
+		base_url: str="https://v2.api-football.com/",
 		headers: Union[Dict[str, str], None]=None,
 		verify: bool=False
 		):
@@ -38,7 +38,9 @@ class APIFootball:
 			except KeyError:
 				raise MissingAPIKey("No API_KEY environment variable or passed to class.")
 
-		self.headers = {"X-RapidAPI-Key": api_key}
+		self.headers = {
+			"x-rapidapi-key": api_key
+			}
 		if headers:
 			self.headers.update(headers)
 		self.verify = verify

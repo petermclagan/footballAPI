@@ -23,7 +23,7 @@
 							"type": "string"
 						},
 						"token": {
-							"type": "string"
+							"type": ["string", "null"]
 						},
 						"active": {
 							"type": "string",
