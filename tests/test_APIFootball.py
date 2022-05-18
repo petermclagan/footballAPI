@@ -33,7 +33,7 @@ class TestAPIFootball:
         assert expected_country in data["api"]["countries"]
 
     def test_custom_endpoint_valid_ids_dryrun(self):
-        assert self.api.get(endpoint='match', dryrun=True, custom_ids={'fixture_id': 1}) is None
+        assert self.api.get(endpoint='match', dryrun=True, custom_ids={'fixture_id': 65}) is None
 
     def test_custom_endpoint_invalid_ids_dryrun(self):
         with pytest.raises(InvalidCustomId):
