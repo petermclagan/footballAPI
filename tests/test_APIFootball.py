@@ -21,10 +21,8 @@ class TestAPIFootball:
     def test_dryrun_get_returns_none(self):
         assert self.api._get(endpoint=self.endpoint1, dryrun=True) is None
 
-    def test_call_api_and_updated_credits(self):
-        original_creds = self.api.available_credits
+    def test_call_api(self):
         data = self.api.get(endpoint="countries")
-        after_creds = self.api.available_credits
 
         expected_country = {
             "country": "Algeria",
@@ -32,7 +30,6 @@ class TestAPIFootball:
             "flag": "https://media.api-sports.io/flags/dz.svg"
         }
 
-        assert original_creds - 1 == after_creds
         assert expected_country in data["api"]["countries"]
 
     def test_custom_endpoint_valid_ids_dryrun(self):
