@@ -45,9 +45,10 @@ These are endpoints which are not standard from the API and have been built and 
  An additional argument is required for the `get` command, **custom_ids**. This should be a dictionary with the key being the name of id type and the value being the provided id. These are then used to build the correct API url to request.
 
 The implemented custom endpoints with their corresponding endpoint are:
+
 | custom endpoint | APIFootball endpoint    | required custom\_ids |
-|-----------------|-------------------------|----------------------|
-| match           | fixture/id/{fixture_id} | fixture_id           |
+|-----------------|:-----------------------:|---------------------:|
+| match           | fixture/id/{fixture_id} |           fixture_id |
 
 If the required custom_ids are not passed a `ValueError` is raised. Only the custom_ids in the above table have been implemented, any others will  raise an `InvalidCustomId` error.
  
