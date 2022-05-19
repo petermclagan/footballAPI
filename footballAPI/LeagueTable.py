@@ -134,12 +134,3 @@ class LeagueTable:
         final_table_df.index = np.arange(1, len(final_table_df) + 1)
         final_table_df.index.names = ["POS"]
         return final_table_df.reset_index()
-
-
-if __name__ == '__main__':
-    lt = LeagueTable(
-        country="England",
-        league="Premier League",
-        season=2015
-    )
-    print(lt.league_table())
