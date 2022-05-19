@@ -46,9 +46,10 @@ These are endpoints which are not standard from the API and have been built and 
 
 The implemented custom endpoints with their corresponding endpoint are:
 
-| custom endpoint | APIFootball endpoint    | required custom\_ids |
-|-----------------|:-----------------------:|---------------------:|
-| match           | fixture/id/{fixture_id} |           fixture_id |
+| custom endpoint |    APIFootball endpoint     | required custom\_ids |
+|----------------|:---------------------------:|---------------------:|
+| match          |  fixtures/id/{fixture_id}   |           fixture_id |
+| league_fixtures| fixtures/league/{league_id} |            league_id |
 
 If the required custom_ids are not passed a `ValueError` is raised. Only the custom_ids in the above table have been implemented, any others will  raise an `InvalidCustomId` error.
  
@@ -113,6 +114,37 @@ Currently there are available schemas contained within the package for the follo
 
 Others shall be added to this list.
 
+<h2 id=league-table> LeagueTable</h2>
+This is a complimentary library that allows the user to determine the league table from a set of fixtures at a given point in time. This is intended to return the maximum amount of data with the minimum number of calls, returning all fixtures and the league table rather than using the standings endpoint.
+This works with any valid league.
+
+Like APIFootball this requires a valid `API_KEY` to be set as an environment variable.
+
+Arguments:
+- `country`: A valid country from the source
+- `league`: A valid league name
+- `season`: A valid season year. This should be the starting year of the league, eg. 2015 for 2015/16 season.
+
+<h5 id=leaguetable-example> Example </h5>
+
+```python
+from datetime import datetime
+
+from footballAPI import LeagueTable
+
+league_table = LeagueTable(
+	country="England",
+	league="Premier League",
+	season=2015
+)
+
+# Determine final standings
+final_table = league_table.league_table()
+
+# Determine league standings on Christmas day
+xmas_table = league_table.league_table(as_of=datetime(2015, 12, 25))
+```
+
 <h2 id=further-notes>Further Notes </h2>
 
 - Running all of the `pytests` for this package will currently use 1 credit of the user, and requires the `API_KEY` environment variable to be available.
@@ -129,3 +161,10 @@ Others shall be added to this list.
 - Added new custom endpoints feature to improve handling of different endpoints.
 - Improvements to logging of schema validation errors.
 - Match is now a permitted endpoint with a validation schema. This requires a specific `fixture_id` and will return fixture, lineup, events, statistic and player statistic data for this `fixture_id`.
+
+<h3 id=1.1.0-1.2.0> 1.1.0 -> 1.2.0 </h3>
+
+- Added LeagueTable module.
+- Addition of `league_fixtures` custom endpoint.
+- Formatting of code.
+- Tidying of documentation.

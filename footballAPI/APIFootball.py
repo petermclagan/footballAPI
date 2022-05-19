@@ -125,8 +125,8 @@ class APIFootball:
         Validates the JSON response from the API against a valid jsonschema object.
 
         :param endpoint: The base endpoint for the request
-        :param: resp: The JSON response from the API
-        :param expected_schema: The expected jsonschema object, defaults to provided shcemas
+        :param resp: The JSON response from the API
+        :param expected_schema: The expected jsonschema object, defaults to provided schemas
         """
         core_endpoint = endpoint.split('/')[0]  # uses teams if endpoint is teams/team
         self.logger.debug(f"Loading validation schema for {core_endpoint}")
@@ -215,7 +215,7 @@ class APIFootball:
         if validate:
             self.logger.debug(f"Performing validation")
             self._validate_data(
-                endpoint=endpoint,
+                endpoint=api_endpoint,
                 data=data,
                 expected_schema=validation_schema
             )
